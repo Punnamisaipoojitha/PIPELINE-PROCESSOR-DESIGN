@@ -25,3 +25,4 @@ The final deliverables include the Verilog implementation of the processor, a te
 
 *OUTPUT* :
 
+<img width="786" alt="Image" src="https://github.com/user-attachments/assets/adeb2f7c-3c89-4fa6-954f-97f70cbe59b6" />
