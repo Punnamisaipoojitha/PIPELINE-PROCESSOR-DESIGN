@@ -14,15 +14,17 @@
 
 *DESCRIPTION OF THE TASK* :
 
-This project involves the design and simulation of a simple 4-stage pipelined processor using Verilog HDL, as part of the CodTech internship deliverables. The objective is to implement a basic processor architecture capable of executing fundamental instructions such as ADD, SUB, and LOAD, while demonstrating the concepts of pipelining—a core principle in modern CPU design for improving performance and throughput.
+ This VHDL code implements a basic 4-stage pipelined processor, named `PipelineProcessor`, that performs simple instructions like `ADD`, `SUB`, and `LOAD`. The processor operates on 8-bit wide instructions and data, and uses a clock (`clk`) to drive the pipeline stages. Although minimal, the design demonstrates key concepts of instruction fetching, decoding, execution, and write-back, making it an excellent educational model for understanding pipeline architecture.
 
-The processor is divided into four key pipeline stages: Instruction Fetch (IF), Instruction Decode (ID), Execution (EX), and Memory/Write Back (MEM/WB). In the IF stage, the instruction is fetched from memory based on the program counter. The ID stage decodes the instruction and prepares operands by reading from the register file. In the EX stage, arithmetic or logic operations like ADD or SUB are performed. The final MEM/WB stage handles memory access for LOAD instructions or writes the result back to the register file.
+The design begins by declaring internal data structures and signals. Two array types, `reg_array` and `mem_array`, represent the register file (with 4 registers) and main memory (with 16 memory locations), respectively. The processor uses a program counter (`PC`) to keep track of the instruction address in memory. The pipeline stages are implemented using signals like `IR_IF` (instruction register in fetch stage), `IR_ID` (instruction register in decode stage), and various other intermediate registers for passing values between stages.
 
-This pipelined architecture allows multiple instructions to be in different stages of execution simultaneously, increasing instruction throughput. Special care is taken in the design to handle basic hazards and maintain data flow integrity between stages. The design is tested through a simulation environment that shows the operation of each instruction as it passes through the pipeline stages. This includes cycle-by-cycle tracking of instruction flow, showcasing parallelism and the benefits of pipelining.
+Each clock cycle triggers a pipeline progression, where every stage performs part of an instruction. The fetch stage (`IF`) reads the instruction from memory using the current PC and then increments the PC. In the decode stage (`ID`), the fetched instruction is broken down into its components: `Opcode_ID` to identify the operation, and register fields `Dest_ID`, `Src1_ID`, and `Src2_ID` to identify source and destination registers. The execution stage (`EX`) then performs the appropriate operation based on the opcode—either adding, subtracting, or loading data. Operands for arithmetic instructions are fetched from the register file.
 
-The final deliverables include the Verilog implementation of the processor, a testbench demonstrating its functionality, and simulation results highlighting the internal behavior of each pipeline stage. This project demonstrates an understanding of CPU microarchitecture and pipelined execution, providing practical insight into performance-oriented processor design and strengthening the student's foundational knowledge in digital system design.
+Finally, in the write-back stage (`WB`), the result of the operation (`Result_WB`) is stored back into the destination register, completing the instruction cycle. Despite the simplicity, this model illustrates instruction pipelining, where multiple instructions are at different stages of execution simultaneously. One limitation of this design is the lack of hazard detection and control logic, which would be essential in a real-world pipelined CPU to avoid incorrect data usage or instruction execution. However, this example is useful for learning how pipeline stages are structured and connected in a synchronous system.
+
 
 
 *OUTPUT* :
+
 
 <img width="786" alt="Image" src="https://github.com/user-attachments/assets/adeb2f7c-3c89-4fa6-954f-97f70cbe59b6" />
